@@ -6,8 +6,8 @@ from google.appengine.ext import db
 from google.appengine.api import users
 from google.appengine.api import memcache
 
-from google.appengine.dist import use_library
-use_library('django', '1.3')
+# from google.appengine.dist import use_library
+# use_library('django', '1.3')
 
 from django import forms
 
