@@ -1,0 +1,56 @@
+<html>
+<body>
+    <a href="/">Back to all orders</a><br />
+    <h1>{{ order.place_name|escape }} Order!</h1>
+    By: <b>{{ order.placed_by|escape }}</b><br />
+    At: <b>{{ order.time|escape }}</b><br />
+    
+    {% if order.added_by == user and order.is_open() %}
+    <br />
+    <form method="POST" action="/cancel" style="display: inline">
+    <input type="hidden" name="order_id" value="{{ order.key()|escape }}" />
+    <input type="submit" value="Close Order" onclick="return confirm('Are you sure you really want to close the order?')" />
+    </form>
+    <br />
+    {% endif %}
+    
+    <h2>What Everybody's Ordering<h2>
+    <table>
+    {% for item in all_items %}
+    <tr>
+        <td>{{ item|escape }}</td>
+        <td>
+        {% if item.added_by == user and order.is_open() %}
+        <form method="POST" action="/cancel" style="display: inline">
+        <input type="hidden" name="item_id" value="{{ item.key()|escape }}" />
+        <input type="submit" value="Cancel Order" />
+        </form>
+        {% endif %}
+        </td>
+        <td>
+        {% if order.added_by == user %}
+        added by: {{ item.added_by|escape }}
+        {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+    
+    <h2>What Do You Want?</h2>
+{% if order.is_open() %}
+    {% if user %}
+    <form method="POST" action="/order/{{ order.key()|escape }}"><table>
+    {{ item_form }}
+    </table><input type="submit"></form>
+
+    {% else %}
+
+    <a href="{{ login_url }}">Please sign in to place your order</a>
+
+    {% endif %}
+{% else %}
+    The order is closed.
+{% endif %}
+
+</body>
+</html>
