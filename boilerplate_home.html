@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+            <div class="hero-unit">
+                <h2>
+                    {{ lang.text_title|safe }}
+                </h2>
+                <p style="text-align: center">
+                    <img src="img/google-app-engine-logo.png" />
+                    <br/>
+                    {{ lang.text_description|safe }}
+                </p>
+            </div>
+            <ul data-role="listview" data-divider-theme="b" data-inset="true" class="nav nav-tabs nav-stacked">
+                <li data-role="list-divider" role="heading">
+                    {{ lang.menu_components|safe }}
+                </li>
+                <li data-theme="c">
+                    <a href="/create" data-transition="slide">
+                        {{ lang.menu_create_user|safe }}
+                    </a>
+                </li>
+                <li data-theme="c">
+                    <a href="/login" data-transition="slide">
+                        {{ lang.menu_login|safe }}
+                    </a>
+                </li>
+                <li data-theme="c">
+                    <a href="/secure" data-transition="slide">
+                        {{ lang.menu_secure|safe }}
+                    </a>
+                </li>
+                <li data-theme="c">
+                    <a href="/password/reset" data-transition="slide">
+                        {{ lang.menu_fyp|safe }}
+                    </a>
+                </li>
+                <li data-theme="c">
+                    <a href="/google-login" data-transition="slide">
+                        {{ lang.menu_glogin|safe }}
+                    </a>
+                </li>
+            </ul>
+{% endblock %}
+

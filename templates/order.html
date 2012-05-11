@@ -1,5 +1,8 @@
-<html>
-<body>
+{% extends "base.html" %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
     <a href="/">Back to all orders</a><br />
     <h1>{{ order.place_name|escape }} Order!</h1>
     By: <b>{{ order.placed_by|escape }}</b><br />
@@ -52,5 +55,4 @@
     The order is closed.
 {% endif %}
 
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,37 @@
+body {
+    /* To avoid load the DOM without Styles
+        script.js has a event to show the Body.
+    */
+    visibility: hidden;
+}
+
+/*
+* messages to self.response.write in
+* the BaseHandler.dispatcher
+*/
+.alert {
+    display: none;
+}
+.alert.alert-success
+, .alert.alert-error
+, .alert.alert-info {
+    display: block;
+}
+
+/* Jquery Validate */
+
+label.error {
+    color: red;
+    padding: .4em 0;
+    display: block;
+}
+
+.ui-page.ui-body-c {
+    background: #FFFFFF;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#FFF),to(#FFF));
+    background-image: -webkit-linear-gradient(#FFF,#FFF);
+    background-image: -moz-linear-gradient(#FFF,#FFF);
+    background-image: -ms-linear-gradient(#FFF,#FFF);
+    background-image: -o-linear-gradient(#FFF,#FFF);
+    background-image: linear-gradient(#FFF,#FFF);
+}
