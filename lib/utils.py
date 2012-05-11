@@ -104,7 +104,7 @@ def get_device(cls):
     elif "AppleWebKit" in uastring:
         browser = "Safari"
     else:
-        browser = "unknow"
+        browser = "unknown"
 
     device = {
         "is_mobile": is_mobile,

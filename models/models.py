@@ -1,7 +1,6 @@
 
 from webapp2_extras.appengine.auth.models import User
-from google.appengine.ext.ndb import model
-from google.appengine.ext import db
+from google.appengine.ext import db, ndb
 
 class User(User):
     """
@@ -11,21 +10,21 @@ class User(User):
     """
 
     #: Creation date.
-    created = model.DateTimeProperty(auto_now_add=True)
+    created = ndb.model.DateTimeProperty(auto_now_add=True)
     #: Modification date.
-    updated = model.DateTimeProperty(auto_now=True)
+    updated = ndb.model.DateTimeProperty(auto_now=True)
     #: User defined unique name, also used as key_name.
-    username = model.StringProperty(required=True)
+    username = ndb.model.StringProperty(required=True)
     #: User Name
-    name = model.StringProperty()
+    name = ndb.model.StringProperty()
     #: User Last Name
-    last_name = model.StringProperty()
+    last_name = ndb.model.StringProperty()
     #: User email
-    email = model.StringProperty(required=True)
+    email = ndb.model.StringProperty(required=True)
     #: Password, only set for own authentication.
-    password = model.StringProperty(required=True)
+    password = ndb.model.StringProperty(required=True)
     #: User Country
-    country = model.StringProperty()
+    country = ndb.model.StringProperty()
 
     #: Authentication identifier according to the auth method in use. Examples:
     #: * own|username
@@ -33,10 +32,10 @@ class User(User):
     #: * openid|identifier
     #: * twitter|username
     #: * facebook|username
-    auth_id = model.StringProperty(repeated=True)
+    auth_id = ndb.model.StringProperty(repeated=True)
 #    auth_id = model.StringProperty()
     # Flag to persist the auth across sessions for third party auth.
-    auth_remember = model.BooleanProperty(default=False)
+    auth_remember = ndb.model.BooleanProperty(default=False)
 
 # TODO: use these methods for authentication and reset password
 #    @classmethod
@@ -48,7 +47,7 @@ class User(User):
 #        return cls.query(cls.auth_id == auth_id).get()
 #
 
-class Order(db.Model):
+class Order(ndb.Model):
     
     STATUS = [
         ('open', 'Open'),
@@ -59,13 +58,13 @@ class Order(db.Model):
         ('other', 'Other'),
     ]
     
-    status = db.StringProperty(default='open')
-    place_type = db.StringProperty(default='thai')
-    place_name = db.StringProperty()
-    time = db.StringProperty()
-    placed_by = db.StringProperty()
-    added_by = db.UserProperty()
-    added_at = db.DateTimeProperty(auto_now_add=True)
+    status = ndb.model.StringProperty(default='open')
+    place_type = ndb.model.StringProperty(default='thai')
+    place_name = ndb.model.StringProperty()
+    time = ndb.model.StringProperty()
+    placed_by = ndb.model.StringProperty()
+    added_by = ndb.model.UserProperty()
+    added_at = ndb.model.DateTimeProperty(auto_now_add=True)
     
     def is_open(self):
         return self.status == 'open'
@@ -79,7 +78,7 @@ class Order(db.Model):
     def __str__(self):
         return "%s at %s by %s" % (self.place_name, self.time, self.placed_by)
 
-class Item(db.Model):
+class Item(ndb.Model):
     
     SPICINESS = [
         ('mild', 'Mild'),
@@ -94,13 +93,13 @@ class Item(db.Model):
         ('pork', 'Pork'),
         ('shrimp', 'Shrimp')]
     
-    order = db.ReferenceProperty(Order)
-    item_name = db.StringProperty()
-    your_name = db.StringProperty()
-    spiciness = db.StringProperty()
-    meat = db.StringProperty()
-    added_by = db.UserProperty()
-    added_at = db.DateTimeProperty(auto_now_add=True)
+    order_key = ndb.model.KeyProperty(kind=Order)
+    item_name = ndb.model.StringProperty()
+    your_name = ndb.model.StringProperty()
+    spiciness = ndb.model.StringProperty()
+    meat = ndb.model.StringProperty()
+    added_by = ndb.model.UserProperty()
+    added_at = ndb.model.DateTimeProperty(auto_now_add=True)
     
     def __str__(self):
         if self.spiciness:
