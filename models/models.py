@@ -1,6 +1,6 @@
 
 from webapp2_extras.appengine.auth.models import User
-from google.appengine.ext import db, ndb
+from google.appengine.ext import ndb
 
 class User(User):
     """

@@ -5,24 +5,14 @@ RedirectRoute: http://webapp-improved.appspot.com/api/webapp2_extras/routes.html
 """
 
 from webapp2_extras.routes import RedirectRoute
-from web.handlers import LoginHandler
-from web.handlers import LogoutHandler
-from web.handlers import SecureRequestHandler
-from web.handlers import CreateUserHandler
-from web.handlers import GoogleLoginHandler
-from web.handlers import PasswordResetHandler
-from web.handlers import PasswordResetCompleteHandler
-from web.handlers import HomeRequestHandler
+from web.handlers import MainPage, OrderPage, CancelItemPage, LogoutHandler, GoogleLoginHandler
 
 _routes = [
-    RedirectRoute('/google-login/', GoogleLoginHandler, name='google-login', strict_slash=True),
-    RedirectRoute('/login/', LoginHandler, name='login', strict_slash=True),
+    RedirectRoute('/login/', GoogleLoginHandler, name='login', strict_slash=True),
     RedirectRoute('/logout/', LogoutHandler, name='logout', strict_slash=True),
-    RedirectRoute('/create/', CreateUserHandler, name='create-user', strict_slash=True),
-    RedirectRoute('/password/reset/', PasswordResetHandler, name='password-reset', strict_slash=True),
-    RedirectRoute('/password/reset/<token>', PasswordResetCompleteHandler, name='password-reset-check', strict_slash=True),
-    RedirectRoute('/secure', SecureRequestHandler, name='secure', strict_slash=True),
-    RedirectRoute('/', HomeRequestHandler, name='home', strict_slash=True)
+    RedirectRoute('/cancel', CancelItemPage, name='cancel', strict_slash=True),
+    RedirectRoute('/order/<order_key:.+>', OrderPage, name='order', strict_slash=True),
+    RedirectRoute('/', MainPage, name='home', strict_slash=True)
 ]
 
 def get_routes():

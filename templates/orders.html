@@ -2,26 +2,32 @@
 
 {% block content %}
     <h1>Open Orders</h1>
-    {% for order in open_orders %}
-    <li><a href="/order/{{ order.key()|escape }}">{{ order|escape }}</a></li>
-    {% endfor %}
+    <div>
+        {% for order in open_orders %}
+        <li><a href="/order/{{ order.key.urlsafe() }}">{{ order|escape }}</a></li>
+        {% endfor %}
+    </div>
 
     <h1>Recently Closed Orders</h1>
-    {% for order in closed_orders %}
-    <li><a href="/order/{{ order.key()|escape }}">{{ order|escape }}</a></li>
-    {% endfor %}
+    <div>
+        {% for order in closed_orders %}
+        <li><a href="/order/{{ order.key.urlsafe() }}">{{ order|escape }}</a></li>
+        {% endfor %}
+    </div>
 
     <h1>Create Your Order</h1>
-    {% if not user %}
+    <div>
+        {% if not current_user %}
 
-    <a href="{{ login_url }}">Please sign in to place your order</a>
+        <a href="{{ login_url }}">Please sign in to place your order</a>
 
-    {% else %}
+        {% else %}
 
-    <form method="POST" action="/"><table>
-    {{ order_form }}
-    </table><input type="submit"></form>
+        <form method="POST" action="/"><table>
+        {{ order_form|safe }}
+        </table><input type="submit"></form>
 
-    {% endif %}
+        {% endif %}
+    </div>
 
 {% endblock %}
