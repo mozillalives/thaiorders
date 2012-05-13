@@ -91,7 +91,8 @@ class Item(ndb.Model):
         ('chicken', 'Chicken'),
         ('beef', 'Beef'),
         ('pork', 'Pork'),
-        ('shrimp', 'Shrimp')]
+        ('shrimp', 'Shrimp'),
+        ('veggie', 'Veggie')]
     
     order_key = ndb.model.KeyProperty(kind=Order)
     item_name = ndb.model.StringProperty()
@@ -103,8 +104,8 @@ class Item(ndb.Model):
     
     def __str__(self):
         if self.spiciness:
-            return "%s %s %s for %s" % (self.item_name, self.meat, self.spiciness, self.your_name)
+            return "%s %s %s" % (self.item_name, self.meat, self.spiciness)
         else:
-            return "%s for %s" % (self.item_name, self.your_name)
+            return self.item_name
 
 

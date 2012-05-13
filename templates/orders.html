@@ -1,33 +1,39 @@
 {% extends "base.html" %}
 
+{% block header %}{% endblock %}
+
 {% block content %}
     <h1>Open Orders</h1>
-    <div>
+    <table class="table">
         {% for order in open_orders %}
-        <li><a href="/order/{{ order.key.urlsafe() }}">{{ order|escape }}</a></li>
+        <tr>
+            <td><a href="/order/{{ order.key.urlsafe() }}">{{ order|escape }}</a></td>
+        </tr>
         {% endfor %}
-    </div>
+    </table>
 
     <h1>Recently Closed Orders</h1>
-    <div>
+    <table class="table">
         {% for order in closed_orders %}
-        <li><a href="/order/{{ order.key.urlsafe() }}">{{ order|escape }}</a></li>
+        <tr>
+            <td><a href="/order/{{ order.key.urlsafe() }}">{{ order|escape }}</a></td>
+        </tr>
         {% endfor %}
-    </div>
+    </table>
 
     <h1>Create Your Order</h1>
-    <div>
-        {% if not current_user %}
+    {% if not current_user %}
 
-        <a href="{{ login_url }}">Please sign in to place your order</a>
+    <a href="{{ login_url }}">Please sign in to place your order</a>
 
-        {% else %}
+    {% else %}
 
-        <form method="POST" action="/"><table>
-        {{ order_form|safe }}
-        </table><input type="submit"></form>
+    <form method="POST" action="/" class="well span5"><table>
+    {{ order_form|safe }}
+    </table><input type="submit" class="btn btn-primary"></form>
 
-        {% endif %}
-    </div>
+    {% endif %}
 
 {% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,32 +1,38 @@
 {% extends "base.html" %}
 
-{% block header %}{% endblock %}
-
 {% block content %}
-    <a href="/">Back to all orders</a><br />
+
     <h1>{{ order.place_name|escape }} Order!</h1>
     By: <b>{{ order.placed_by|escape }}</b><br />
     At: <b>{{ order.time|escape }}</b><br />
     
     {% if order.added_by == current_user and order.is_open() %}
     <br />
-    <form method="POST" action="/cancel" style="display: inline">
+    <form method="POST" action="/cancel" class="form-inline">
     <input type="hidden" name="order_id" value="{{ order.key.urlsafe() }}" />
-    <input type="submit" value="Close Order" onclick="return confirm('Are you sure you really want to close the order?')" />
+    <input class="btn" type="submit" value="Close Order" onclick="return confirm('Are you sure you really want to close the order?')" />
     </form>
     <br />
     {% endif %}
     
     <h2>What Everybody's Ordering</h2>
-    <table>
-    {% for item in all_items %}
+    <table class="table">
     <tr>
-        <td>{{ item|escape }}</td>
+        <th>Name</th>
+        <th>Order</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+    {% for item in all_items %}
+    
+    <tr>
+        <td>{{ item.your_name }}</td>
+        <td>{{ item }}</td>
         <td>
         {% if item.added_by == current_user and order.is_open() %}
-        <form method="POST" action="/cancel" style="display: inline">
+        <form method="POST" action="/cancel" class="form-inline">
         <input type="hidden" name="item_id" value="{{ item.key.urlsafe() }}" />
-        <input type="submit" value="Cancel Order" />
+        <input type="submit" value="Cancel Order" class="btn" />
         </form>
         {% endif %}
         </td>
@@ -42,9 +48,9 @@
     <h2>What Do You Want?</h2>
 {% if order.is_open() %}
     {% if current_user %}
-    <form method="POST" action="/order/{{ order.key.urlsafe() }}"><table>
+    <form method="POST" action="/order/{{ order.key.urlsafe() }}" class="well span5"><table>
     {{ item_form|safe }}
-    </table><input type="submit"></form>
+    </table><input class="btn btn-primary" type="submit"></form>
 
     {% else %}
 
@@ -56,3 +62,5 @@
 {% endif %}
 
 {% endblock %}
+
+{% block footer %}{% endblock %}
