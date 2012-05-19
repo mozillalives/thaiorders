@@ -1,11 +1,11 @@
 application: nabthaiorders
-version: 1-3
+version: 1-4
 runtime: python27
 api_version: 1
 threadsafe: yes
 
 # In production, uncomment line below.
-# default_expiration: "30d"
+default_expiration: "30d"
 
 skip_files:
 - ^(.*/)?app\.yaml
