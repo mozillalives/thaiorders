@@ -77,7 +77,7 @@ class MainPage(BaseHandler):
     def get(self):
         self.user = users.get_current_user()
         open_orders = models.Order.query(models.Order.status=="open")
-        closed_orders = models.Order.query(models.Order.status=="closed")
+        closed_orders = models.Order.query(models.Order.status=="closed").order(-models.Order.added_at).fetch(10)
 
         template_values = {
             'open_orders': open_orders,
